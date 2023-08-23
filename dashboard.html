@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <!--<title> Responsiive Admin Dashboard | CodingLab </title>-->
+    <link rel="stylesheet" href="dash_style.css">
+    <!-- Boxicons CDN Link -->
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class="bx bxl-c-plus-plus"></i>
+            <span class="logo_name">CaloriesPlus</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="./dashboard.html" class="active">
+                    <i class="bx bx-grid-alt"></i>
+                    <span class="links_name">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="./food-calc.html">
+                    <i class="bx bx-grid-alt"></i>
+                    <span class="links_name">Calorie Calcutor</span>
+                </a>
+            </li>
+            <li>
+                <a href="./exercise.html">
+                    <i class="bx bx-grid-alt"></i>
+                    <span class="links_name">Exercise Calculator</span>
+                </a>
+            </li>
+            <li>
+                <a href="./settings.html">
+                    <i class="bx bx-cog"></i>
+                    <span class="links_name">Settings</span>
+                </a>
+            </li>
+            <li class="log_out">
+                <a href="./login-sign-page.html">
+                    <i class="bx bx-log-out"></i>
+                    <span class="links_name">Log out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <nav>
+            <div class="sidebar-button">
+                <i class="bx bx-menu sidebarBtn"></i>
+                <span class="dashboard">Dashboard</span>
+            </div>
+            <div class="profile-details">
+                <!--<img src="images/profile.jpg" alt="">-->
+                <span class="admin_name">john@gmail.com</span>
+            </div>
+        </nav>
+        <div class="home-content">
+            <div class="sales-boxes">
+                <div class="recent-sales box">
+                    <div class="title">Last 7 days performance</div>
+                    <canvas id="myChart" style="width:100%;max-width:1000px"></canvas>
+                </div>
+                <div class="top-sales box">
+                    <div class="title">Record your Calories</div>
+                    <br>
+                    <form>
+                        <label for="breakfast" style="font-size: 25px;">Breakfast Calories:</label>
+                        <input type="number" id="breakfast" name="breakfast" class="record-input" required>
+                        <br>
+                        <br>
+                        <label for="lunch" style="font-size: 25px;">Lunch Calories:</label>
+                        <input type="number" id="lunch" name="lunch" class="record-input" required>
+                        <br>
+                        <br>
+                        <label for="dinner" style="font-size: 25px;">Dinner Calories:</label>
+                        <input type="number" id="dinner" name="dinner" class="record-input" required>
+                        <br>
+                        <br>
+                        <label for="extra" style="font-size: 25px;">Additional Food Calories:</label>
+                        <input type="number" id="extra" name="extra" class="record-input" required>
+                        <br>
+                        <br>
+                        <!-- <button type="submit">Submit</button> -->
+
+                        <body>
+                            <button id="btn">
+                                    <p id="btnText">Submit</p>
+                                    <div class="check-box">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                                            <path fill="transparent" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                                        </svg>
+                                    </div>
+                                </button>
+                </div>
+                <script type="text/javascript">
+                    const btn = document.querySelector("#btn");
+                    const btnText = document.querySelector("#btnText");
+                    const inputs = document.querySelectorAll(".record-input");
+
+                    btn.onclick = (event) => {
+                        event.preventDefault(); // Prevent the form from submitting
+                        let emptyFields = 0;
+                        inputs.forEach(input => {
+                            if (input.value.trim() === "") {
+                                emptyFields++;
+                            }
+                        });
+                        if (emptyFields == 4) {
+                            alert("Please fill in at least one field.");
+                        } else {
+                            btnText.innerHTML = "Thanks";
+                            btn.classList.add("active");
+                        }
+                    };
+                </script>
+                </form>
+                <div class="caloriebox">
+                    <div class="caloriebox" id="top1-sales">
+                        <div class="title" style="font-size: 25px;">Calories consumed so far today</div>
+                    </div>
+                    <div class="caloriebox" id="top2-sales">
+                        <div class="pie" style="--p:50"> 50%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".sidebarBtn");
+        sidebarBtn.onclick = function() {
+            sidebar.classList.toggle("active");
+            if (sidebar.classList.contains("active")) {
+                sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+            } else
+                sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        }
+    </script>
+    <script>
+        var xValues = [17, 18, 19, 20, 21, 22, 23];
+        var yValues = [1800, 2000, 1990, 2400, 1600, 2100, 1700];
+
+        new Chart("myChart", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(0,0,255,1.0)",
+                    borderColor: "rgba(0,0,255,0.1)",
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 1000,
+                            max: 3000
+                        }
+                    }],
+                }
+            }
+        });
+    </script>
+    </body>
+
+</html>

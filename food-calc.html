@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <!--<title> Responsiive Admin Dashboard | CodingLab </title>-->
+    <link rel="stylesheet" href="dash_style.css">
+    <!-- Boxicons CDN Link -->
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class="bx bxl-c-plus-plus"></i>
+            <span class="logo_name">CaloriesPlus</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="./dashboard.html">
+                    <i class="bx bx-grid-alt"></i>
+                    <span class="links_name">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="./food-calc.html" class="active">
+                    <i class="bx bx-grid-alt"></i>
+                    <span class="links_name">Calorie Calcutor</span>
+                </a>
+            </li>
+            <li>
+                <a href="./exercise.html">
+                    <i class="bx bx-grid-alt"></i>
+                    <span class="links_name">Exercise Calculator</span>
+                </a>
+            </li>
+            <li>
+                <a href="./settings.html">
+                    <i class="bx bx-cog"></i>
+                    <span class="links_name">Settings</span>
+                </a>
+            </li>
+            <li class="log_out">
+                <a href="./login-sign-page.html">
+                    <i class="bx bx-log-out"></i>
+                    <span class="links_name">Log out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <nav>
+            <div class="sidebar-button">
+                <i class="bx bx-menu sidebarBtn"></i>
+                <span class="dashboard">Calorie Calculator</span>
+            </div>
+            <div class="profile-details">
+                <!--<img src="images/profile.jpg" alt="">-->
+                <span class="admin_name">john@gmail.com</span>
+            </div>
+        </nav>
+        <div class="home-content">
+            <div class="sales-boxes">
+                <div class="top-sales box">
+                    <div class="title">Food Calculator</div>
+                    <form>
+                        <br>
+                        <label for="meal" style="font-size: 25px;">Enter your meal here:</label>
+                        <input type="string" id="meal" name="meal" class="record-input" required>
+                        <br>
+                        <p>
+                            Example: "Lasagne" or "Apple"
+                        </p>
+                        <br>
+                        <h2>Calorie Count:</h2>
+                        <p id="result-info"></p>
+                        <p id="result-total-info"></p>
+                        <br>
+                        <br>
+                        <!-- <button type="submit">Submit</button> -->
+
+                        <body>
+                            <button id="btn">
+                                    <p id="btnText">Calculate</p>
+                                    <div class="check-box">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                                            <path fill="transparent" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                                        </svg>
+                                    </div>
+                                </button>
+                </div>
+                <script type="text/javascript">
+                    const btn = document.querySelector("#btn");
+                    const btnText = document.querySelector("#btnText");
+                    const inputs = document.querySelectorAll(".record-input");
+                    btn.onclick = (event) => {
+                        event.preventDefault(); // Prevent the form from submitting
+                        const userInput = document.getElementById("meal").value;
+                        let result = '';
+                        console.log(userInput)
+                        let emptyFields = 0;
+                        inputs.forEach(input => {
+                            if (input.value.trim() === "") {
+                                emptyFields++;
+                            }
+                        });
+                        if (emptyFields == 1) {
+                            alert("Please fill in at least one field.");
+                        } else {
+                            btnText.innerHTML = "Thanks";
+                            btn.classList.add("active");
+                            //
+                            const url = 'https://api.calorieninjas.com/v1/nutrition?query=' + userInput;
+                            const headers = {
+                                'X-Api-Key': 'a7jQfG1G0QqTI263atIVGg==HtHYTWF5XYrDEp0A'
+                            };
+                            let itemString = "<ul>";
+                            let totalCalories = 0;
+
+                            fetch(url, {
+                                    headers
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    data.items.forEach(function(item) {
+                                        itemString += `${item.name} - ${item.calories} calories <br>`;
+                                        totalCalories += item.calories;
+                                    });
+                                    itemString += "</ul>";
+                                    itemString += `<br><p><b>Total calories: ${totalCalories}</b></p>`;
+
+                                    const resultElement = document.getElementById('result-info');
+                                    resultElement.innerHTML = result;
+
+                                    const resultCaloriesElement = document.getElementById('result-total-info');
+                                    resultCaloriesElement.innerHTML = itemString;
+
+                                })
+                                .catch(error => {
+                                    const resultElement = document.getElementById('result-info');
+                                    resultElement.innerHTML = error;
+
+                                });
+                        }
+                    };
+                </script>
+                </form>
+            </div>
+        </div>
+        </div>
+    </section>
+    <script>
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".sidebarBtn");
+        sidebarBtn.onclick = function() {
+            sidebar.classList.toggle("active");
+            if (sidebar.classList.contains("active")) {
+                sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+            } else
+                sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        }
+    </script>
+    </body>
+
+</html>

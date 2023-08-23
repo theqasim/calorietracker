@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Sign Up Page | Calories Plues</title>
+    <link rel="stylesheet" href="log-sign-styles.css">
+</head>
+<body>
+    <div id="page" class="site login-show">
+        <div class="container">
+            <div class="wrapper">
+                
+                <div class="login">
+                    <div class="content-heading">
+                        <div class="y-style">
+                            <div class="logo"><div class="logo"><a href="#">Calories<span>Plus</span></a></div></div>
+                            <div class="welcome">
+                                <h2>Calories<br>Counter</h2>
+                                <p>Eat to nourish, not to indulge<br>track your calories to stay in control</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-form">
+                        <div class="y-style">
+                            <form action="">
+                                <p>
+                                    <label>Email</label>
+                                    <input type="email" placeholder="Enter your email">
+                                </p>
+                                <p>
+                                    <label>Password</label>
+                                    <input type="password" placeholder="Enter your password">
+                                </p>
+                                <p class="check">
+                                    <input type="checkbox" id="remember">
+                                    <label for="remember">Remember me</label>
+                                </p>
+                                <p class="forget"><a href="#">Forget password</a></p>
+                                <p><button type="submit" id = "login_btn">Login</button></p>
+                            </form>
+                            <div class="afterform">
+                                <p>Don't have an account?</p>
+                                <a href="#" class="t-signup">Register</a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--Log in form -->
+                
+                <div class="signup">
+                    
+                    <div class="content-heading">
+                        <div class="y-style">
+                            <div class="logo"><div class="logo"><a href="#">Calories<span>Plus</span></a></div></div>
+                            <div class="welcome">
+                                <h2>Sign Up<br>Now</h2>
+                                <p>"Fuel your body,<br> track your intake."</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                   
+                    
+                    <div class="content-form">
+                        
+                        <div class="y-style">
+                            
+                            <form action="">
+                                
+                                <p>
+                                    <label>Full Name</label>
+                                    <input type="text" placeholder="Enter your name">
+                                </p>
+                                <p>
+                                    <label>Email</label>
+                                    <input type="text" placeholder="Enter your email">
+                                </p>
+                                <p>
+                                    <label> Password</label>
+                                    <input type="password" placeholder="Enter your password">
+                                </p>
+                                <p class="check">
+                                    <input type="checkbox" id="terms">
+                                    <label for="terms">I agree to the <a href="terms.html" target=”_blank” id="terms">Terms and Conditions</a></label>
+                                </p>
+                                <p><button type="submit" id="signup_btn" onclick="openPopup()">Sign Up</button></p>
+                                <div class="popup" id="popup">
+                                    <img src="Tick.png">
+                                    <h1>Thanks You!</h1>
+                                    <h3>You've successfully signed up for a profile</h3>
+                                    <a href="./dashboard.html">
+                                        <button type="button" class="btn" onclick="closePopup()" >Go To Dashboard</button>
+                                    </a>
+                                    
+                                </div>
+                            </form>
+                            <div class="social">
+                                <p><span>Or sign up with</span></p>
+                                <ul>
+                                    <li><a href="#" class="google"><ion-icon name="logo-google"></ion-icon></a></li>
+                                    <li><a href="#" class="facebook"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                                    <li><a href="#" class="twitter"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                                </ul>
+                            </div>
+                            <div class="afterform">
+                                <p>Already have an account?</p>
+                                <a href="#" class="t-login">Login here</a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--Sign up form -->
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"> </script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+</body>
+</html>
